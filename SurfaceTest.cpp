@@ -52,10 +52,17 @@ int main(int argc, char** argv)
     ssize_t bpr = outBuffer.stride * bytesPerPixel(outBuffer.format);
     android_memset16((uint16_t*)outBuffer.bits, 0xF800, bpr*outBuffer.height);
     surface->unlockAndPost();
+	sleep(3);
 
     surface->lock(&outBuffer, NULL);
     android_memset16((uint16_t*)outBuffer.bits, 0x07E0, bpr*outBuffer.height);
     surface->unlockAndPost();
+	sleep(3);
+
+    surface->lock(&outBuffer, NULL);
+    android_memset16((uint16_t*)outBuffer.bits, 0x001F, bpr*outBuffer.height);
+    surface->unlockAndPost();
+	sleep(3);
 
     SurfaceComposerClient::openGlobalTransaction();
     surfaceControl->setSize(320, 240);
