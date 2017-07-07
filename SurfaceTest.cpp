@@ -64,10 +64,11 @@ int main(int argc, char** argv)
     surface->unlockAndPost();
 	sleep(3);
 
-    SurfaceComposerClient::openGlobalTransaction();
-    surfaceControl->setSize(320, 240);
-    SurfaceComposerClient::closeGlobalTransaction();
-
+	for (int i = 0; i < 100; i++) {
+		surface->lock(&outBuffer, NULL);
+		printf("%03d buff addr = 0x%x\n", i, (unsigned int)outBuffer.bits);
+		surface->unlockAndPost();
+	}
     
     IPCThreadState::self()->joinThreadPool();
     
